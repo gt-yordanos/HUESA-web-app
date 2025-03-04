@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { HashLink} from 'react-router-hash-link';
 import { Link } from "react-router-dom";
-import { FaHome, FaInfoCircle, FaBook, FaRegCalendarAlt, FaUserPlus } from "react-icons/fa";
+import { FaHome, FaInfoCircle, FaBook, FaRegCalendarAlt, FaUserPlus, FaUserTie } from "react-icons/fa";
 import ThemeToggle from "./ThemeToggle";
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4 lg:px-[10%] fixed">
+    <div className="navbar bg-base-100 shadow-sm px-4 lg:px-[10%] fixed z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -17,7 +18,8 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li><Link to="/" className="flex items-center"><FaHome /> Home</Link></li>
-            <li><Link to="/about" className="flex items-center"><FaInfoCircle /> About</Link></li>
+            <li><HashLink smooth to="/#about" className="flex items-center"><FaInfoCircle /> About</HashLink></li>
+            <li><HashLink smooth to="#teams" className="flex items-center"><FaUserTie  />Our Teams</HashLink></li>
             <li><Link to="/events" className="flex items-center"><FaRegCalendarAlt /> Events</Link></li>
             <li><Link to="/library" className="flex items-center"><FaBook /> Library</Link></li>
             <li><Link to="/register" className="flex items-center"><FaUserPlus /> Register</Link></li>
