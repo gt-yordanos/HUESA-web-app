@@ -4,6 +4,7 @@ import Nav from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import MeetOurTeam from './components/MeetOurTeam';
+import Footer from './components/Footer'
 function App() {
  
   return (
@@ -12,6 +13,7 @@ function App() {
       <Hero/>
       <About/>
       <MeetOurTeam/>
+      <Footer/>
     </>
   )
 }
