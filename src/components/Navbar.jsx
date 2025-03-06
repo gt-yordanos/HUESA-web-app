@@ -5,7 +5,7 @@ import { FaHome, FaInfoCircle, FaBook, FaRegCalendarAlt, FaUserPlus, FaUserTie }
 import ThemeToggle from "./ThemeToggle";
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm px-4 lg:px-[10%] fixed z-50">
+    <div className="navbar bg-base-100 shadow-sm px-4 lg:px-[10%] fixed z-50 top-0">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
