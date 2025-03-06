@@ -4,7 +4,7 @@ import LeadershipCard from './LeadershipCard'; // import the LeadershipCard comp
 const MeetOurTeam = () => {
   const leadershipTeam = [
     { 
-      image: "https://via.placeholder.com/150", 
+      image: "https://lh3.googleusercontent.com/a/ACg8ocLUTB8F_7a5iZVp_IOxpusUSozP_XUH3AungcVHbBzo1BoCsZgr=s432-c-no", 
       name: "John Doe", 
       role: "President", 
       linkedin: "https://www.linkedin.com/in/johndoe" 

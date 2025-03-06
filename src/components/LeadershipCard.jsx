@@ -1,4 +1,3 @@
-// LeadershipCard.js
 import React from 'react';
 import { FaLinkedin } from 'react-icons/fa'; // Import LinkedIn icon
 

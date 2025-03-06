@@ -47,7 +47,7 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Collaboration</h3>
-              <p>
+              <p className='text-left'>
                 We believe in the power of teamwork and open communication. Collaboration between students, instructors, 
                 and professionals drives innovation and ensures mutual growth.
               </p>
@@ -61,7 +61,7 @@ const About = () => {
             </div>
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Growth</h3>
-              <p>
+              <p className='text-left'>
                 We are committed to fostering the personal and professional growth of every member. Through training programs 
                 and skill-building workshops, we help students reach their full potential.
               </p>
