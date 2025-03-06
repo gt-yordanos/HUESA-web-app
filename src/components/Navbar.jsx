@@ -19,7 +19,7 @@ const Navbar = () => {
           >
             <li><Link to="/" className="flex items-center"><FaHome /> Home</Link></li>
             <li><HashLink smooth to="/#about" className="flex items-center"><FaInfoCircle /> About</HashLink></li>
-            <li><HashLink smooth to="#teams" className="flex items-center"><FaUserTie  />Our Teams</HashLink></li>
+            <li><HashLink smooth to="/#teams" className="flex items-center"><FaUserTie  />Our Teams</HashLink></li>
             <li><Link to="/events" className="flex items-center"><FaRegCalendarAlt /> Events</Link></li>
             <li><Link to="/library" className="flex items-center"><FaBook /> Library</Link></li>
             <li><Link to="/register" className="flex items-center"><FaUserPlus /> Register</Link></li>
