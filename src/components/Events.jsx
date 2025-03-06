@@ -44,7 +44,7 @@ const Events = () => {
   }
 
   return (
-    <div className="bg-base-300 py-20">
+    <div className="bg-base-300 py-20 min-w-[100vh]">
       <h1 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Upcoming Events</h1>
 
       {/* Make sure only one event is displayed per row */}

@@ -17,7 +17,7 @@ const About = () => {
       {/* Mission Section */}
       <section className="py-16 lg:px-[10%] px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-4">Our Mission</h2>
+          <h2 className="m:text-4xl text-2xl font-semibold mb-4">Our Mission</h2>
           <p className="sm:text-lg text-sm mb-6 text-left">
             Our mission is to bridge the gap between students, instructors, and business professionals
             by providing students with the tools and opportunities to excel in the world of business and economics.
@@ -30,7 +30,7 @@ const About = () => {
       {/* Vision Section */}
       <section className="py-16 bg-base-100 lg:px-[10%] px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-4">Our Vision</h2>
+          <h2 className="m:text-4xl text-2xl font-semibold mb-4">Our Vision</h2>
           <p className="sm:text-lg text-sm mb-6 text-left">
             HUESA envisions a community where students in the College of Business and Economics are 
             equipped with the skills, knowledge, and connections they need to become leaders in their fields. 
@@ -43,7 +43,7 @@ const About = () => {
       {/* Values Section */}
       <section className="py-16 lg:px-[10%] px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-semibold mb-4">Our Values</h2>
+          <h2 className="m:text-4xl text-2xl font-semibold mb-4">Our Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Collaboration</h3>
