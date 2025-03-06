@@ -21,7 +21,7 @@ const Hero = () => {
           between students, instructors, and industry professionals to help you connect with your 
           future and grow into successful business and economics leaders.
         </p>
-        <button className="btn btn-outline btn-info rounded-full">Register Now</button>
+        <button className="btn btn-outline btn-info rounded-full"> Register Now</button>
       </div>
     </div>
   </div>
