@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Events from './components/Events';
 import Home from './pages/Home';
 import Register from './pages/Register';
-
+import Library from './pages/Library';
 function App() {
   return (
    <>
@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/events" element={<Events />} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/library" element={<Library/>} />
       </Routes>
       <Footer />
    </>
