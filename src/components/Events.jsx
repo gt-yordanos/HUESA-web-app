@@ -29,11 +29,10 @@ const Events = () => {
     },
   ];
 
-  const [events, setEvents] = useState(fakeEvents); // Using the fake events data
-  const [loading, setLoading] = useState(false); // No need to load from DB anymore
+  const [events, setEvents] = useState(fakeEvents);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Simulate loading state
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -47,9 +46,9 @@ const Events = () => {
   return (
     <div className="bg-base-300 py-20">
       <h1 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Upcoming Events</h1>
-      
-      {/* Center the grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 lg:px-[10%] justify-items-center">
+
+      {/* Make sure only one event is displayed per row */}
+      <div className="space-y-6 px-4 lg:px-[10%]">
         {events.length === 0 ? (
           <div>No events found</div>
         ) : (

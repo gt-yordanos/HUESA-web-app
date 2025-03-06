@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import './App.css'
 import Nav from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import MeetOurTeam from './components/MeetOurTeam';
 import Footer from './components/Footer';
-import Events from './components/Events';  // Import the Events component
+import Events from './components/Events';
 
 function App() {
   return (
