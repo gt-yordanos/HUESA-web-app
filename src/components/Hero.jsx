@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import HeroImg from '../assets/ECON.png';
 const Hero = () => {
   return (
@@ -21,7 +22,7 @@ const Hero = () => {
           between students, instructors, and industry professionals to help you connect with your 
           future and grow into successful business and economics leaders.
         </p>
-        <button className="btn btn-outline btn-info rounded-full"> Register Now</button>
+        <button className="btn btn-outline btn-info rounded-full"><Link to='/register'>Register Now</Link></button>
       </div>
     </div>
   </div>
