@@ -2,7 +2,7 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import MeetOurTeam from '../components/MeetOurTeam';
 
-function App() {
+function Home() {
   return (
    <>
     <Hero />
@@ -12,4 +12,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
