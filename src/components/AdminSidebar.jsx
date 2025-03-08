@@ -1,79 +1,95 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaTachometerAlt, FaUserFriends, FaRegBuilding, FaCalendarAlt, FaAward, FaCompressAlt, FaExpandAlt } from 'react-icons/fa';
+import { useTheme } from '../contexts/ThemeContext';
 import ThemeToggle from './ThemeToggle';
 
 const AdminSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selected, setSelected] = useState('/admin/dashboard');
+  const { theme } = useTheme();
+  const location = useLocation();
 
   const handleSidebarCollapse = () => {
     setCollapsed(!collapsed);
   };
 
-  const handleLinkClick = (path) => {
-    setSelected(path);
+  const getSelectedBg = (isSelected) => {
+    if (isSelected) {
+      return theme === 'light' ? 'bg-black text-white' : 'bg-white text-black';
+    }
+    return '';
+  };
+
+
+  const isSelected = (path) => {
+    if (path === '/admin/dashboard') {
+      return location.pathname === '/admin' || location.pathname === '/admin/dashboard';
+    }
+    return location.pathname === path;
   };
 
   return (
     <div className="flex">
-      <div className={`w-${collapsed ? '16' : '64'} h-screen bg-base-300 p-4 transition-all duration-300`}>
+      <div
+        className={`h-screen bg-base-300 p-2 transition-all duration-300 ${collapsed ? 'w-24' : 'w-60'}`}
+        style={{ transition: 'width 0.3s ease' }}
+      >
         <div className="mb-4 text-xl font-semibold text-center">
           HUESA
         </div>
-        <div className="mb-4 flex justify-between items-center">
+        <div className="mb-4 flex justify-between items-center gap-2">
           <ThemeToggle />
           <button
             onClick={handleSidebarCollapse}
-            className="text-xl p-2 rounded bg-base-100 hover:bg-primary hover:text-white"
+            className="text-xl p-2 rounded bg-base-200 hover:bg-base-100 cursor-pointer"
           >
             {collapsed ? <FaExpandAlt /> : <FaCompressAlt />}
           </button>
         </div>
-        <ul className="menu p-4 text-base-content text-center">
+        <ul className="menu p-0 text-base-content flex flex-col gap-2 m-auto">
           <li>
             <Link
-              to="/admin/dashboard"
-              className={`flex items-center py-2 rounded text-xl ${selected === '/admin/dashboard' ? 'bg-base-100 text-white' : 'hover:bg-base-200'}`}
-              onClick={() => handleLinkClick('/admin/dashboard')}
+              to="/admin"
+              className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/dashboard'))}`}
             >
-              <FaTachometerAlt className="mr-2" /> {!collapsed && 'Dashboard'}
+              <FaTachometerAlt className={`${collapsed ? '' : 'mr-2'}`} />
+              {!collapsed && 'Dashboard'}
             </Link>
           </li>
           <li>
             <Link
               to="/admin/association"
-              className={`flex items-center py-2 rounded text-xl ${selected === '/admin/association' ? 'bg-base-100 text-white' : 'hover:bg-base-200'}`}
-              onClick={() => handleLinkClick('/admin/association')}
+              className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/association'))}`}
             >
-              <FaRegBuilding className="mr-2" /> {!collapsed && 'Association'}
+              <FaRegBuilding className={`${collapsed ? '' : 'mr-2'}`} />
+              {!collapsed && 'Association'}
             </Link>
           </li>
           <li>
             <Link
               to="/admin/members"
-              className={`flex items-center py-2 rounded text-xl ${selected === '/admin/members' ? 'bg-base-100 text-white' : 'hover:bg-base-200'}`}
-              onClick={() => handleLinkClick('/admin/members')}
+              className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/members'))}`}
             >
-              <FaUserFriends className="mr-2" /> {!collapsed && 'Members'}
+              <FaUserFriends className={`${collapsed ? '' : 'mr-2'}`} />
+              {!collapsed && 'Members'}
             </Link>
           </li>
           <li>
             <Link
-              to="/admin/events"
-              className={`flex items-center py-2 rounded text-xl ${selected === '/admin/events' ? 'bg-base-100 text-white' : 'hover:bg-base-200'}`}
-              onClick={() => handleLinkClick('/admin/events')}
+              to="/admin/post-events"
+              className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/post-events'))}`}
             >
-              <FaCalendarAlt className="mr-2" /> {!collapsed && 'Events'}
+              <FaCalendarAlt className={`${collapsed ? '' : 'mr-2'}`} />
+              {!collapsed && 'Events'}
             </Link>
           </li>
           <li>
             <Link
               to="/admin/certificates"
-              className={`flex items-center py-2 rounded text-xl ${selected === '/admin/certificates' ? 'bg-base-100 text-white' : 'hover:bg-base-200'}`}
-              onClick={() => handleLinkClick('/admin/certificates')}
+              className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/certificates'))}`}
             >
-              <FaAward className="mr-2" /> {!collapsed && 'Certificates'}
+              <FaAward className={`${collapsed ? '' : 'mr-2'}`} />
+              {!collapsed && 'Certificates'}
             </Link>
           </li>
         </ul>
