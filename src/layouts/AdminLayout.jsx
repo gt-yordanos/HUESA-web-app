@@ -4,10 +4,10 @@ import AdminSidebar from '../components/AdminSidebar';
 const AdminLayout = ({ children }) => {
   return (
     <div className="flex">
-      <div className="w-1/5">
+      <div className="transition-all duration-300">
         <AdminSidebar />
       </div>
-      <div className="flex-1 p-8">
+      <div className="flex-1 p-8 transition-all duration-300">
         {children}
       </div>
     </div>
