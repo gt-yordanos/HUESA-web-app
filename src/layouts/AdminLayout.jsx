@@ -3,11 +3,11 @@ import AdminSidebar from '../components/AdminSidebar';
 
 const AdminLayout = ({ children }) => {
   return (
-    <div className="flex">
+    <div className="flex h-[100vh] w-[100vw] overflow-hidden">
       <div className="transition-all duration-300">
         <AdminSidebar />
       </div>
-      <div className="flex-1 p-8 transition-all duration-300">
+      <div className="flex-1 lg:p-8 py-6 transition-all duration-300 overflow-y-auto">
         {children}
       </div>
     </div>
