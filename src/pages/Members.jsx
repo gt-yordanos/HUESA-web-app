@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaPlus, FaFileExcel } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Members = () => {
   const [members, setMembers] = useState([
@@ -37,10 +39,9 @@ const Members = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedGraduatingYear, setSelectedGraduatingYear] = useState('');
 
-  // Filter function for search
   const filterMembers = () => {
     let filtered = members;
-
+  
     if (searchTerm) {
       filtered = filtered.filter(
         (member) =>
@@ -48,25 +49,26 @@ const Members = () => {
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
+  
     if (selectedDepartment) {
       filtered = filtered.filter(
         (member) => member.department === selectedDepartment
       );
     }
-
+  
     if (selectedGender) {
       filtered = filtered.filter((member) => member.sex === selectedGender);
     }
-
+  
     if (selectedGraduatingYear) {
       filtered = filtered.filter(
         (member) => member.graduatingYear == selectedGraduatingYear
       );
     }
-
+  
     setFilteredMembers(filtered);
   };
+  
 
   // Handle add member
   const addMember = () => {
@@ -86,8 +88,45 @@ const Members = () => {
     toast.info('Edit member feature is coming soon!');
   };
 
+  const exportToExcel = () => {
+    const dataToExport = filteredMembers.map((member) => ({
+      'Student ID': member.studentId,
+      Name: `${member.firstName} ${member.lastName}`,
+      Phone: member.phoneNumber,
+      Email: member.email,
+      Department: member.department,
+      'Graduating Year': member.graduatingYear,
+      Sex: member.sex,
+    }));
+  
+    // Create a worksheet from the data
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+  
+    // Create a new workbook with the worksheet
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Members');
+  
+    // Export the file
+    const fileName = 'members.xlsx';
+    const excelFile = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+  
+    // Convert the excel file into a Blob and save it
+    const blob = new Blob([s2ab(excelFile)], { type: 'application/octet-stream' });
+    saveAs(blob, fileName);
+  };
+  
+  const s2ab = (s) => {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
+  };
+  
+
   return (
-    <div className="p-8">
+    <div className="lg:p-8">
       <h3 className="text-2xl font-semibold mb-4">Members Management</h3>
       <p className="mb-6">Manage all the student members here.</p>
 
@@ -175,7 +214,7 @@ const Members = () => {
                     <FaEdit className="text-white" />
                   </button>
                   <button
-                    className="btn btn-sm btn-danger"
+                    className="btn btn-sm btn-error"
                     onClick={() => deleteMember(member.id)}
                   >
                     <FaTrash className="text-white" />
@@ -187,13 +226,23 @@ const Members = () => {
         </table>
       </div>
 
-      <button
-        onClick={addMember}
-        className="btn btn-primary mt-4 flex items-center"
-      >
-        <FaPlus className="mr-2" />
-        Add Member
-      </button>
+      <div className="mt-4 flex justify-between">
+        <button
+          onClick={addMember}
+          className="btn btn-success flex items-center text-white"
+        >
+          <FaPlus className="mr-2" />
+          Add Member
+        </button>
+
+        <button
+          onClick={exportToExcel}
+          className="btn btn-primary flex items-center text-white"
+        >
+          <FaFileExcel className="mr-2" />
+          Export to Excel
+        </button>
+      </div>
     </div>
   );
 };
