@@ -29,9 +29,8 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="flex">
       <div
-        className={`h-screen bg-base-300 p-2 transition-all duration-300 ${collapsed ? 'w-24' : 'w-60'}`}
+        className={`h-screen bg-base-300 transition-all duration-300 p-2 ${collapsed ? 'w-24' : 'w-52'}`}
         style={{ transition: 'width 0.3s ease' }}
       >
         <div className="mb-4 text-xl font-semibold text-center">
@@ -94,8 +93,7 @@ const AdminSidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="flex-1 p-8"></div>
-    </div>
+  
   );
 };
 
