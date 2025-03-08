@@ -49,7 +49,7 @@ const AdminSidebar = () => {
         <ul className="menu p-0 text-base-content flex flex-col gap-2 m-auto">
           <li>
             <Link
-              to="/admin"
+              to="/admin/dashboard"
               className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/dashboard'))}`}
             >
               <FaTachometerAlt className={`${collapsed ? '' : 'mr-2'}`} />

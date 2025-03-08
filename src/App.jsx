@@ -27,7 +27,8 @@ function App() {
       <Route path="/library" element={<><Nav /><Library /><Footer /></>} />
 
       {/* Admin Routes with Admin Sidebar (No Navbar or Footer) */}
-      <Route path="/admin/" element={<><AdminSidebar /><AdminDashboard /></>} />
+      <Route path="/admin" element={<><AdminSidebar /><AdminDashboard /></>} />
+      <Route path="/admin/dashboard" element={<><AdminSidebar /><AdminDashboard /></>} />
       <Route path="/admin/association" element={<><AdminSidebar /><Association /></>} />
       <Route path="/admin/members" element={<><AdminSidebar /><Members /></>} />
       <Route path="/admin/post-events" element={<><AdminSidebar /><PostEvents /></>} />
