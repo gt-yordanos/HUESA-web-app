@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { db } from '../firebase';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +20,7 @@ const Register = () => {
   });
 
   const [errorMessages, setErrorMessages] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -40,20 +43,58 @@ const Register = () => {
     if (!formData.graduatingYear) errors.graduatingYear = 'Graduating year is required.';
     if (!formData.sex) errors.sex = 'Sex is required.';
     if (!formData.focusArea) errors.focusArea = 'Focus area is required.';
-    
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  // Function to check if email or phone already exists in the database
+  const checkExistingUser = async () => {
+    const membersRef = collection(db, 'members');
+    const emailQuery = query(membersRef, where('email', '==', formData.email));
+    const phoneQuery = query(membersRef, where('phoneNumber', '==', formData.phoneNumber));
+    const idQuery = query(membersRef, where('studentId', '==', formData.studentId));
+
+    const emailSnapshot = await getDocs(emailQuery);
+    const phoneSnapshot = await getDocs(phoneQuery);
+    const idSnapshot = await getDocs(idQuery);
+
+    if (!emailSnapshot.empty) {
+      toast.error('Already registered with this email.');
+      return true;
+    }
+    if (!phoneSnapshot.empty) {
+      toast.error('Already registered with this phone number.');
+      return true;
+    }
+    if (!idSnapshot.empty) {
+      toast.error(' Already registered with this ID.');
+      return true;
+    }
+
+    return false; 
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errors = validateForm();
     setErrorMessages(errors);
 
     if (Object.keys(errors).length === 0) {
-      // Send data to backend API here
-      toast.success('Registration successful!');
-      navigate('/dashboard'); // Navigate after successful registration
+      setIsLoading(true); // Start loading
+      const isUserExisting = await checkExistingUser();
+      if (!isUserExisting) {
+        try {
+          // Add form data to Firestore in the 'members' collection
+          await addDoc(collection(db, 'members'), formData);
+
+          toast.success('Registration successful!');
+          navigate('/');
+        } catch (error) {
+          toast.error('Error registering. Please try again.');
+          console.error('Error adding document: ', error);
+        }
+      }
+      setIsLoading(false);
     } else {
       toast.error('Please fix the errors and try again.');
     }
@@ -71,9 +112,8 @@ const Register = () => {
   return (
     <div className="w-full bg-base-300">
       <div className="sm:max-w-lg max-w-[90%] mx-auto py-20">
-        <h2 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Student Registration</h2>
+        <h2 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Member Registration</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-        
           {/* Student ID */}
           <div className="form-control">
             <label className="label" htmlFor="studentId">
@@ -272,10 +312,18 @@ const Register = () => {
             {errorMessages.focusArea && <p className="text-error text-sm">{errorMessages.focusArea}</p>}
           </div>
 
-          <button type="submit" className="btn btn-info w-full">Register</button>
+          <button type="submit" className="btn btn-info w-full" disabled={isLoading}>
+            {isLoading ? (
+              <div className="spinner-border text-light" role="status">
+               <span className="loading loading-spinner loading-md text-info"></span>
+              </div>
+            ) : (
+              'Register'
+            )}
+          </button>
         </form>
       </div>
-    </div> 
+    </div>
   );
 };
 

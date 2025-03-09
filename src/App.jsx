@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Member Pages
 import Home from './pages/Home';
@@ -42,6 +44,8 @@ function App() {
         <Route path="/admin/certificates" element={<AdminLayout><Certificates /></AdminLayout>} />
         <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
+
+      <ToastContainer />
     </AuthProvider>
   );
 }
