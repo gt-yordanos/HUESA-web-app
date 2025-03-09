@@ -3,13 +3,17 @@ import ReactDOM from "react-dom/client";
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/AuthContext';
 import App from "./App";
+import { ToastContainer } from 'react-toastify';
 
-// Render the app wrapped in the BrowserRouter and ThemeProvider
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <App />
+        <ToastContainer />
+      </ThemeProvider>
+    </AuthProvider>
   </BrowserRouter>
 );
