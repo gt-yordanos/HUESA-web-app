@@ -11,15 +11,14 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  
-  const { user } = useAuth();
+
+  const { user } = useAuth() || {}; 
 
   useEffect(() => {
-    // Check if user is already logged in and if they have admin role
     if (user) {
       user.getIdTokenResult().then((idTokenResult) => {
         if (idTokenResult.claims.admin) {
-          navigate('/admin-dashboard');
+          navigate('/admin');
         }
       }).catch((error) => {
         console.log("Error fetching user claims:", error);
@@ -27,47 +26,37 @@ const AdminLogin = () => {
     }
   }, [user, navigate]);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+ 
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    const idTokenResult = await user.getIdTokenResult();
 
-      // Check if user has admin custom claims
-      const idTokenResult = await user.getIdTokenResult();
-      if (idTokenResult.claims.admin) {
-        toast.success('Login Successful!');
-        navigate('/admin-dashboard');
-      } else {
-        toast.error('You are not authorized to access the admin area.');
-      }
-    } catch (error) {
+    if (idTokenResult.claims.admin) {
+      toast.success('Login Successful!');
+      localStorage.setItem('authToken', await user.getIdToken());
+      navigate('/admin');
+    } else {
+      toast.error('You are not authorized to access the admin area.');
+    }
+  } catch (error) {
+    if (error.code === 'auth/invalid-credential') {
+      toast.error('Invalid credentials. Please check your email and password.');
+    } else if (error.code === 'auth/too-many-requests') {
+      toast.error('Too many requests. Please try again later.');
+    } else {
       toast.error('Error: ' + error.message);
     }
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
 
-      // Check if user has admin custom claims
-      const idTokenResult = await user.getIdTokenResult();
-      if (idTokenResult.claims.admin) {
-        toast.success('Login Successful with Google!');
-        navigate('/admin-dashboard');
-      } else {
-        toast.error('You are not authorized to access the admin area.');
-      }
-    } catch (error) {
-      toast.error('Error: ' + error.message);
-    }
-  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-100">
@@ -107,8 +96,14 @@ const AdminLogin = () => {
             />
           </div>
 
-          <button type="submit" disabled={loading} className="btn btn-info w-full mb-4">
-            {loading ? 'Logging In...' : 'Login'}
+          <button type="submit" className="btn btn-info w-full" disabled={loading}>
+            {loading ? (
+              <div className="spinner-border text-light" role="status">
+               <span className="loading loading-spinner loading-md text-info"></span>
+              </div>
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
       </div>
