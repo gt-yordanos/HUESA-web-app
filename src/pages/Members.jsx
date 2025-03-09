@@ -31,23 +31,10 @@ const Members = () => {
     fetchMembers();
   }, []);
 
-  // Graduation status calculation based on the current year
-  const getGraduationStatus = (graduatingYear) => {
-    const currentYear = new Date().getFullYear();
-    if (graduatingYear < currentYear) return 'Graduated';
-    if (graduatingYear >= currentYear) return 'Non-Graduated';
-    const diff = graduatingYear - currentYear;
-    if (diff === 0) return '4th Year';
-    if (diff === 1) return '3rd Year';
-    if (diff === 2) return '2nd Year';
-    if (diff === 3) return '1st Year';
-    return 'Non-Graduated';
-  };
-
-  // Filter members based on selected filters
   const filterMembers = () => {
+    const currentYear = new Date().getFullYear();  // Get the current year
     let filtered = members;
-
+  
     // Apply search term filter
     if (searchTerm) {
       filtered = filtered.filter(
@@ -56,36 +43,70 @@ const Members = () => {
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
+  
     // Apply department filter
     if (selectedDepartment) {
       filtered = filtered.filter((member) => member.department === selectedDepartment);
     }
-
+  
     // Apply gender filter
     if (selectedGender) {
       filtered = filtered.filter((member) => member.sex === selectedGender);
     }
-
+  
     // Apply focus area filter
     if (selectedFocusArea) {
       filtered = filtered.filter((member) => member.focusArea === selectedFocusArea);
     }
-
-    // Apply graduating year filter
+  
+    // Apply graduating year filter based on the selected criteria
     if (selectedGraduatingYear && selectedGraduatingYear !== 'All') {
-      filtered = filtered.filter(
-        (member) => getGraduationStatus(member.graduatingYear) === selectedGraduatingYear
-      );
-    }  
-
+      filtered = filtered.filter((member) => {
+        const graduatingYear = Number(member.graduatingYear);  // Convert to number
+  
+        // Graduated: Filter members who graduated (graduatingYear < currentYear)
+        if (selectedGraduatingYear === "Graduated" && graduatingYear < currentYear) {
+          return true;
+        }
+  
+        // Non-Graduated: Filter members who have not graduated (graduatingYear >= currentYear)
+        if (selectedGraduatingYear === "Non-Graduated" && graduatingYear >= currentYear) {
+          return true;
+        }
+  
+        // 1st Year: Filter members in their 1st year (graduatingYear - currentYear === 3)
+        if (selectedGraduatingYear === "1st Year" && graduatingYear - currentYear === 3) {
+          return true;
+        }
+  
+        // 2nd Year: Filter members in their 2nd year (graduatingYear - currentYear === 2)
+        if (selectedGraduatingYear === "2nd Year" && graduatingYear - currentYear === 2) {
+          return true;
+        }
+  
+        // 3rd Year: Filter members in their 3rd year (graduatingYear - currentYear === 1)
+        if (selectedGraduatingYear === "3rd Year" && graduatingYear - currentYear === 1) {
+          return true;
+        }
+  
+        // 4th Year: Filter members in their 4th year (graduatingYear === currentYear)
+        if (selectedGraduatingYear === "4th Year" && graduatingYear === currentYear) {
+          return true;
+        }
+  
+        return false;  // No match
+      });
+    }
+  
     setFilteredMembers(filtered);
   };
-
+    
   // Trigger filter whenever any filter changes
   useEffect(() => {
     filterMembers();
   }, [searchTerm, selectedDepartment, selectedGender, selectedGraduatingYear, selectedFocusArea]);
+  
+  
 
   const deleteMember = async (id) => {
     try {
@@ -187,7 +208,6 @@ const Members = () => {
           onChange={(e) => setSelectedGraduatingYear(e.target.value)}
           className="select select-bordered w-1/3"
         >
-          <option value="">All Graduation Years</option>
           <option value="All">All</option>
           <option value="Graduated">Graduated</option>
           <option value="Non-Graduated">Non-Graduated</option>
