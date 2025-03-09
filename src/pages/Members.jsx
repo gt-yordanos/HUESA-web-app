@@ -1,47 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaEdit, FaTrash, FaPlus, FaFileExcel } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { db } from '../firebase';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import { AddMember, EditMember } from '../components/AddMemberEditComponents'; // Import the Add and Edit components
 
 const Members = () => {
-  const [members, setMembers] = useState([
-    {
-      id: 1,
-      studentId: 'S001',
-      firstName: 'John',
-      lastName: 'Doe',
-      phoneNumber: '1234567890',
-      email: 'john.doe@example.com',
-      department: 'Economics',
-      graduatingYear: 2023,
-      sex: 'Male',
-      focusArea: 'Public Relations',
-    },
-    {
-      id: 2,
-      studentId: 'S002',
-      firstName: 'Jane',
-      lastName: 'Doe',
-      phoneNumber: '0987654321',
-      email: 'jane.doe@example.com',
-      department: 'Management',
-      graduatingYear: 2024,
-      sex: 'Female',
-      focusArea: 'Finance',
-    },
-  ]);
-
-  const [filteredMembers, setFilteredMembers] = useState(members);
+  const [members, setMembers] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedGraduatingYear, setSelectedGraduatingYear] = useState('');
+  const [selectedFocusArea, setSelectedFocusArea] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false); 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
 
+  useEffect(() => {
+    const fetchMembers = async () => {
+      const membersRef = collection(db, 'members');
+      const snapshot = await getDocs(membersRef);
+      const membersList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setMembers(membersList);
+      setFilteredMembers(membersList);
+    };
+    fetchMembers();
+  }, []);
+
+  // Graduation status calculation based on the current year
+  const getGraduationStatus = (graduatingYear) => {
+    const currentYear = new Date().getFullYear();
+    if (graduatingYear < currentYear) return 'Graduated';
+    if (graduatingYear >= currentYear) return 'Non-Graduated';
+    const diff = graduatingYear - currentYear;
+    if (diff === 0) return '4th Year';
+    if (diff === 1) return '3rd Year';
+    if (diff === 2) return '2nd Year';
+    if (diff === 3) return '1st Year';
+    return 'Non-Graduated';
+  };
+
+  // Filter members based on selected filters
   const filterMembers = () => {
     let filtered = members;
-  
+
+    // Apply search term filter
     if (searchTerm) {
       filtered = filtered.filter(
         (member) =>
@@ -49,72 +56,72 @@ const Members = () => {
           member.lastName.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-  
+
+    // Apply department filter
     if (selectedDepartment) {
-      filtered = filtered.filter(
-        (member) => member.department === selectedDepartment
-      );
+      filtered = filtered.filter((member) => member.department === selectedDepartment);
     }
-  
+
+    // Apply gender filter
     if (selectedGender) {
       filtered = filtered.filter((member) => member.sex === selectedGender);
     }
-  
-    if (selectedGraduatingYear) {
-      filtered = filtered.filter(
-        (member) => member.graduatingYear == selectedGraduatingYear
-      );
+
+    // Apply focus area filter
+    if (selectedFocusArea) {
+      filtered = filtered.filter((member) => member.focusArea === selectedFocusArea);
     }
-  
+
+    // Apply graduating year filter
+    if (selectedGraduatingYear && selectedGraduatingYear !== 'All') {
+      filtered = filtered.filter(
+        (member) => getGraduationStatus(member.graduatingYear) === selectedGraduatingYear
+      );
+    }  
+
     setFilteredMembers(filtered);
   };
-  
 
-  // Handle add member
-  const addMember = () => {
-    // Placeholder for adding member
-    toast.success('Member added!');
-  };
+  // Trigger filter whenever any filter changes
+  useEffect(() => {
+    filterMembers();
+  }, [searchTerm, selectedDepartment, selectedGender, selectedGraduatingYear, selectedFocusArea]);
 
-  // Handle delete member
-  const deleteMember = (id) => {
-    setMembers(members.filter((member) => member.id !== id));
-    toast.success('Member deleted!');
-  };
-
-  // Handle edit member
-  const editMember = (id) => {
-    // Placeholder for editing member
-    toast.info('Edit member feature is coming soon!');
+  const deleteMember = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'members', id));
+      setMembers(members.filter((member) => member.id !== id));
+      setFilteredMembers(filteredMembers.filter((member) => member.id !== id));
+      toast.success('Member deleted!');
+    } catch (error) {
+      toast.error('Error deleting member');
+      console.error('Error deleting member:', error);
+    }
   };
 
   const exportToExcel = () => {
     const dataToExport = filteredMembers.map((member) => ({
       'Student ID': member.studentId,
-      Name: `${member.firstName} ${member.lastName}`,
+      FisrtName: member.firstName,
+      MiddleName: member.middleName,
+      LastName: member.lastName,
       Phone: member.phoneNumber,
       Email: member.email,
       Department: member.department,
       'Graduating Year': member.graduatingYear,
       Sex: member.sex,
+      'Focus Area' : member.focusArea,
     }));
-  
-    // Create a worksheet from the data
+
     const ws = XLSX.utils.json_to_sheet(dataToExport);
-  
-    // Create a new workbook with the worksheet
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Members');
-  
-    // Export the file
     const fileName = 'members.xlsx';
     const excelFile = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-  
-    // Convert the excel file into a Blob and save it
     const blob = new Blob([s2ab(excelFile)], { type: 'application/octet-stream' });
     saveAs(blob, fileName);
   };
-  
+
   const s2ab = (s) => {
     const buf = new ArrayBuffer(s.length);
     const view = new Uint8Array(buf);
@@ -123,29 +130,41 @@ const Members = () => {
     }
     return buf;
   };
-  
 
   return (
-    <div className="lg:p-8">
-      <h3 className="text-2xl font-semibold mb-4">Members Management</h3>
+    <>
+    <div className="sticky z-10 lg:p-4">
+      <h3 className="lg:text-4xl text-2xl font-semibold mb-4">Members Management</h3>
       <p className="mb-6">Manage all the student members here.</p>
+      <div className="my-4 flex justify-between flex-wrap">
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="btn btn-success flex items-center text-white"
+        >
+          <FaPlus className="mr-2" />
+          Add Member
+        </button>
 
-      <div className="mb-6 flex items-center space-x-4">
-        {/* Search */}
+        <button
+          onClick={exportToExcel}
+          className="btn btn-primary flex items-center text-white"
+        >
+          <FaFileExcel className="mr-2" />
+          Export to Excel
+        </button>
+      </div>
+
+      <div className="flex items-center space-x-4">
         <input
           type="text"
           placeholder="Search by name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyUp={filterMembers}
           className="input input-bordered w-1/3"
         />
-
-        {/* Department Filter */}
         <select
           value={selectedDepartment}
           onChange={(e) => setSelectedDepartment(e.target.value)}
-          onBlur={filterMembers}
           className="select select-bordered w-1/3"
         >
           <option value="">All Departments</option>
@@ -154,34 +173,46 @@ const Members = () => {
           <option value="PADM">PADM</option>
           <option value="Cooperative">Cooperative</option>
         </select>
-
-        {/* Gender Filter */}
         <select
           value={selectedGender}
           onChange={(e) => setSelectedGender(e.target.value)}
-          onBlur={filterMembers}
           className="select select-bordered w-1/3"
         >
           <option value="">All Genders</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
-
-        {/* Graduation Year Filter */}
         <select
           value={selectedGraduatingYear}
           onChange={(e) => setSelectedGraduatingYear(e.target.value)}
-          onBlur={filterMembers}
           className="select select-bordered w-1/3"
         >
           <option value="">All Graduation Years</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
+          <option value="All">All</option>
+          <option value="Graduated">Graduated</option>
+          <option value="Non-Graduated">Non-Graduated</option>
+          <option value="1st Year">1st Year</option>
+          <option value="2nd Year">2nd Year</option>
+          <option value="3rd Year">3rd Year</option>
+          <option value="4th Year">4th Year</option>
+        </select>
+        <select
+          value={selectedFocusArea}
+          onChange={(e) => setSelectedFocusArea(e.target.value)}
+          className="select select-bordered w-1/3"
+        >
+          <option value="">All Focus Area</option>
+          <option value="Public Relations">Public Relations</option>
+          <option value="Finance">Finance</option>
+          <option value="Academic">Academic</option>
+          <option value="Research">Research</option>
+          <option value="Membership">Membership</option>
+          <option value="Event Planning">Event Planning</option>
+          <option value="other">Other</option>
         </select>
       </div>
+    </div>
 
-      {/* Members Table */}
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
           <thead>
@@ -196,7 +227,7 @@ const Members = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='overflow-y-auto'>
             {filteredMembers.map((member) => (
               <tr key={member.id}>
                 <td>{member.studentId}</td>
@@ -209,7 +240,10 @@ const Members = () => {
                 <td className="flex items-center space-x-2">
                   <button
                     className="btn btn-sm btn-info"
-                    onClick={() => editMember(member.id)}
+                    onClick={() => {
+                      setSelectedMember(member);
+                      setShowEditModal(true);
+                    }}
                   >
                     <FaEdit className="text-white" />
                   </button>
@@ -226,24 +260,14 @@ const Members = () => {
         </table>
       </div>
 
-      <div className="mt-4 flex justify-between">
-        <button
-          onClick={addMember}
-          className="btn btn-success flex items-center text-white"
-        >
-          <FaPlus className="mr-2" />
-          Add Member
-        </button>
+      {/* Show Add Member Modal */}
+      {showAddModal && <AddMember onClose={() => setShowAddModal(false)} onSubmit={() => setShowAddModal(false)} />}
 
-        <button
-          onClick={exportToExcel}
-          className="btn btn-primary flex items-center text-white"
-        >
-          <FaFileExcel className="mr-2" />
-          Export to Excel
-        </button>
-      </div>
-    </div>
+      {/* Show Edit Member Modal */}
+      {showEditModal && selectedMember && (
+        <EditMember member={selectedMember} onClose={() => setShowEditModal(false)} onSubmit={() => setShowEditModal(false)} />
+      )}
+    </>
   );
 };
 
