@@ -1,7 +1,14 @@
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-const MembersTable = ({ filteredMembers, loading, deletingMemberId, deleteMember, setShowEditModal, setSelectedMember }) => {
+const MembersTable = ({
+  filteredMembers,
+  loading,
+  deletingMemberId,
+  deleteMember,
+  setShowEditModal,
+  setSelectedMember,
+}) => {
   return (
     <div className="overflow-x-auto">
       <table className="table table-zebra w-full">
@@ -28,25 +35,28 @@ const MembersTable = ({ filteredMembers, loading, deletingMemberId, deleteMember
             filteredMembers.map((member) => (
               <tr key={member.id}>
                 <td>{member.studentId}</td>
-                <td>{`${member.firstName} ${member.lastName}`}</td>
+                <td>{`${member.firstName} ${member.middleName}`}</td>
                 <td>{member.phoneNumber}</td>
                 <td>{member.email}</td>
                 <td>{member.department}</td>
                 <td>{member.graduatingYear}</td>
                 <td>{member.sex}</td>
                 <td className="flex items-center space-x-2">
+                  {/* Edit Button */}
                   <button
                     className="btn btn-sm btn-info"
                     onClick={() => {
-                      setSelectedMember(member);
-                      setShowEditModal(true);
+                      setSelectedMember(member); // Set the selected member to edit
+                      setShowEditModal(true); // Show the edit modal
                     }}
                   >
                     <FaEdit className="text-white" />
                   </button>
+
+                  {/* Delete Button */}
                   <button
                     className="btn btn-sm btn-error"
-                    onClick={() => deleteMember(member.id)}
+                    onClick={() => deleteMember(member.id)} // Delete member action
                     disabled={deletingMemberId === member.id} // Disable button if deleting
                   >
                     {deletingMemberId === member.id ? (
