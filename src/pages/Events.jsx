@@ -44,16 +44,18 @@ const Events = () => {
       {/* Upcoming Events Section */}
       <h1 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Upcoming Events</h1>
 
-      <div className="space-y-6 px-4 lg:px-[10%]">
+      <div className="space-y-6">
         {loading ? (
           // Skeleton loader for events
           Array.from({ length: 3 }).map((_, index) => (
-            <div key={index} className="flex w-full flex-col gap-4">
-              <div className="skeleton h-32 w-full bg-base-100 shadow-xl rounded-2xl"></div>
-              <div className="skeleton h-4 w-1/2 bg-base-100"></div>
-              <div className="skeleton h-4 w-full bg-base-100"></div>
-              <div className="skeleton h-4 w-full bg-base-100"></div>
+            <div className="card w-full bg-base-100 shadow-xl text-base-content flex flex-row items-center space-x-6 p-6 pt-9 rounded-2xl relative">
+            <div className="flex w-full flex-col gap-4">
+            <div className="skeleton h-32 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-full"></div>
             </div>
+          </div>
           ))
         ) : upcomingEvents.length === 0 ? (
           <div>No upcoming events found</div>
@@ -65,7 +67,7 @@ const Events = () => {
       {/* Past Events Section */}
       <h1 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4 mt-12">Past Events</h1>
 
-      <div className="space-y-6 px-4 lg:px-[10%]">
+      <div className="space-y-6">
         {loading ? (
           // Skeleton loader for events
           Array.from({ length: 3 }).map((_, index) => (
