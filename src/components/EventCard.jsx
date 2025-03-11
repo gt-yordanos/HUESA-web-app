@@ -18,7 +18,7 @@ const EventCard = ({ event }) => {
   const eventTimeString = eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
 
   return (
-    <div className="card w-full bg-base-100 shadow-xl text-base-content flex flex-row items-center space-x-6 p-6 pt-8 rounded-2xl relative">
+    <div className="card w-full bg-base-100 shadow-xl text-base-content flex flex-row items-center space-x-6 p-6 pt-9 rounded-2xl relative">
       <div className="absolute top-4 right-2">
         {isPastEvent ? (
           <span className="badge badge-xs badge-error indicator-item"></span>
@@ -56,7 +56,7 @@ const EventCard = ({ event }) => {
               attendees.map((attendee, index) => (
                 <span
                   key={index}
-                  className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm sm:text-base"
+                  className="bg-blue-100 text-blue-700 px-3 py-1 mb-2 rounded-full text-sm sm:text-base"
                 >
                   {attendee}
                 </span>
