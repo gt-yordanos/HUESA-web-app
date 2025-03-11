@@ -28,11 +28,11 @@ const EventCard = ({ event }) => {
       </div>
 
       <div className="flex-1">
-        <h2 className="card-title text-xl sm:text-2xl md:text-3xl font-bold">{title}</h2>
-        <p className="mt-2 text-sm sm:text-base md:text-lg text-gray-800 dark:text-gray-300">{description}</p>
+        <h2 className="card-title text-lg sm:text-xl md:text-2xl font-bold">{title}</h2>
+        <p className="mt-2 text-sm sm:text-base opacity-50 text-justify">{description}</p>
 
         {/* Location and Date on a single row */}
-        <div className="mt-4 flex items-center text-sm sm:text-base md:text-lg space-x-4">
+        <div className="mt-4 text-sm sm:text-base md:text-lg grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="flex items-center">
             <FaRegClock className="mr-2 text-yellow-500" />
             <span>{`${eventDateString} at ${eventTimeString}`}</span>
