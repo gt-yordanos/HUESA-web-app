@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
       {/* Navigation Links */}
-      <nav className="grid grid-flow-col gap-4">
+      <nav className="grid grid-cols-3 sm:grid-cols-6  gap-4">
         <Link to="/" className="link link-hover">Home</Link>
         <HashLink smooth to="/#about" className="link link-hover">About</HashLink>
         <HashLink smooth to="#teams" className="link link-hover">Our Teams</HashLink>
