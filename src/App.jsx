@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 import AdminDashboard from './pages/AdminDashboard';
 import Association from './pages/Association';
 import Members from './pages/Members';
-import PostEvents from './pages/PostEvents';
+import ManageEvents from './pages/ManageEvents';
 import Certificates from './pages/Certificates';
 import AdminLogin from './pages/AdminLogin';
 import AdminLayout from './layouts/AdminLayout';
@@ -73,11 +73,11 @@ function App() {
         }
       />
       <Route 
-        path="/admin/post-events"
+        path="/admin/manage-events"
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <PostEvents />
+              <ManageEvents />
             </AdminLayout>
           </ProtectedRoute>
         }

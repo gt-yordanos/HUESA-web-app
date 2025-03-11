@@ -208,6 +208,7 @@ const Members = () => {
             <option value="Economics">Economics</option>
             <option value="Management">Management</option>
             <option value="PADM">PADM</option>
+            <option value="Accounting">Accounting</option>
             <option value="Cooperative">Cooperative</option>
           </select>
           <select

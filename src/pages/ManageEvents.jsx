@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PostEvents = () => {
+const ManageEvents = () => {
   return (
     <div>
       <h3 className="text-2xl font-semibold">Events</h3>
@@ -9,4 +9,4 @@ const PostEvents = () => {
   );
 };
 
-export default PostEvents;
+export default ManageEvents;

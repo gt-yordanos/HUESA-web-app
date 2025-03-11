@@ -81,7 +81,7 @@ const AdminSidebar = () => {
         </li>
         <li>
           <Link
-            to="/admin/post-events"
+            to="/admin/manage-events"
             className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/post-events'))}`}
           >
             <FaCalendarAlt className={`${collapsed ? '' : 'mr-2'}`} />
