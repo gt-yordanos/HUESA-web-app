@@ -31,6 +31,7 @@ const ManageEvents = () => {
         id: doc.id,
         ...doc.data(),
       }));
+
       setEvents(fetchedEvents);
     } catch (error) {
       toast.error('Failed to load events.');
@@ -44,7 +45,7 @@ const ManageEvents = () => {
       toast.error('All fields are required!');
       return;
     }
-  
+
     setIsLoading(true);
     try {
       await addDoc(collection(db, 'events'), newEvent); // Create new event
@@ -58,14 +59,14 @@ const ManageEvents = () => {
       setIsLoading(false);
     }
   };
-  
+
   const handleUpdateEvent = async () => {
     if (!editingEvent) return;
     if (!editingEvent.title || !editingEvent.description || !editingEvent.date || !editingEvent.location) {
       toast.error('All fields are required!');
       return;
     }
-  
+
     setIsLoading(true);
     try {
       const eventRef = doc(db, 'events', editingEvent.id);
@@ -100,13 +101,14 @@ const ManageEvents = () => {
     setShowModal(true); // Open the modal
   };
 
+  // Filter the events based on the search and filter criteria
   const filterEvents = (events) => {
     return events.filter(event => {
       const eventDate = new Date(event.date);
       if (isNaN(eventDate.getTime())) return false; 
 
       const eventDateString = eventDate.toLocaleDateString();
-  
+
       if (filterDate) {
         const selectedDate = new Date(`${filterMonth}/${filterDate}/${filterYear}`);
         if (isNaN(selectedDate.getTime())) return false; 
@@ -116,7 +118,7 @@ const ManageEvents = () => {
 
       if (filterMonth && eventDate.getMonth() !== parseInt(filterMonth) - 1) return false;
       if (filterYear && eventDate.getFullYear() !== parseInt(filterYear)) return false;
-  
+
       return true;
     });
   };
@@ -133,7 +135,20 @@ const ManageEvents = () => {
       days.push(i);
     }
     return days;
-  };  
+  };
+
+  // Apply filters and search, and then sort by date descending
+  const filteredEvents = filterEvents(events)
+    .filter(event => 
+      event.title.toLowerCase().includes(searchTitle.toLowerCase())
+    )
+    .sort((a, b) => {
+      // Only sort by date if no filters or search are applied
+      if (!searchTitle && !filterDate && !filterMonth && !filterYear) {
+        return new Date(b.date) - new Date(a.date); // Most recent first
+      }
+      return 0; // Do not sort if filters or search are applied
+    });
 
   return (
     <div className="container mx-auto">
@@ -225,7 +240,14 @@ const ManageEvents = () => {
               </tr>
             </thead>
             <tbody>
-              {filterEvents(events).map((event) => (
+            {isLoading && !deletingEventId ? (  // Show the spinner only when fetching and not deleting
+              <tr>
+                <td colSpan="5" className="text-center">
+                  <span className="loading loading-spinner loading-xl"></span>
+                </td>
+              </tr>
+            ) : (
+              filteredEvents.map((event) => (
                 <tr key={event.id}>
                   <td className="text-ellipsis overflow-hidden whitespace-nowrap max-w-xs">{event.title}</td>
                   <td>{new Date(event.date).toLocaleDateString()}</td>
@@ -243,7 +265,7 @@ const ManageEvents = () => {
                     <button
                       onClick={() => handleDeleteEvent(event.id)}
                       className="btn btn-sm btn-error ml-2 text-white"
-                      disabled={deletingEventId === event.id}
+                      disabled={deletingEventId === event.id}  // Disable button if it's the event being deleted
                     >
                       {deletingEventId === event.id ? (
                         <span className="loading loading-spinner loading-sm text-error"></span>
@@ -253,8 +275,9 @@ const ManageEvents = () => {
                     </button>
                   </td>
                 </tr>
-              ))}
-            </tbody>
+              ))
+            )}
+          </tbody>
           </table>
         </div>
       </div>
