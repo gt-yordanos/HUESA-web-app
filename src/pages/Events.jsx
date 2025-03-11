@@ -40,7 +40,7 @@ const Events = () => {
   const pastEvents = events.filter(event => new Date(event.date) <= new Date());
 
   return (
-    <div className="bg-base-300 py-20 min-w-[100vh]">
+    <div className="bg-base-300 py-20 w-full">
       {/* Upcoming Events Section */}
       <h1 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Upcoming Events</h1>
 
