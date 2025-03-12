@@ -43,7 +43,7 @@ const About = () => {
   return (
     <div className="py-8 bg-base-200" id="about">
       <section className="hero min-h-[250px] bg-base-300 lg:px-[10%] px-4">
-        <div className="hero-content text-center">
+        <div className="hero-content hero-co text-centerhero-content text-center flex flex-col items-center justify-center">
           <h1 className="sm:text-4xl text-2xl font-bold">About HUESA</h1>
           <p className="sm:text-lg text-sm mt-4">
             We help students grow, learn, and connect through collaborative initiatives and mentorship.
@@ -84,19 +84,19 @@ const About = () => {
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Collaboration</h3>
               <p className='text-left'>
-                We believe in the power of teamwork and open communication.
+                We believe in the power of teamwork and open communication. Collaboration between students, instructors, and professionals drives innovation and ensures mutual growth.
               </p>
             </div>
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Mentorship</h3>
               <p className='text-left'>
-                Mentorship is at the core of HUESA, offering guidance through academic and career journeys.
+                Mentorship is at the core of HUESA. We connect students with experienced professionals who guide them through their academic and career journeys, offering invaluable advice and support.
               </p>
             </div>
             <div className="card bg-base-100 shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Growth</h3>
               <p className='text-left'>
-                We focus on fostering personal and professional growth through training programs and workshops.
+                We are committed to fostering the personal and professional growth of every member. Through training programs and skill-building workshops, we help students reach their full potential.
               </p>
             </div>
           </div>
