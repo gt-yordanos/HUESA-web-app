@@ -139,44 +139,42 @@ const Members = () => {
 
   // Export filtered members to Excel
   const exportToExcel = () => {
-    if(filteredMembers.length === 0) {
+    if (filteredMembers && filteredMembers.length === 0) {
       toast.error('No data to export!');
       return;
     }
-    else{
-      const dataToExport = filteredMembers.map((member) => ({
-        'Student ID': member.studentId,
-        FirstName: member.firstName,
-        LastName: member.lastName,
-        Phone: member.phoneNumber,
-        Email: member.email,
-        Department: member.department,
-        'Graduating Year': member.graduatingYear,
-        Sex: member.sex,
-        FocusArea: member.focusArea,
-      }));
   
-      const ws = XLSX.utils.json_to_sheet(dataToExport);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Members');
-      const fileName = 'members.xlsx';
-      const excelFile = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
-      const blob = new Blob([s2ab(excelFile)], { type: 'application/octet-stream' });
-      saveAs(blob, fileName);
-    };
+    const dataToExport = filteredMembers.map((member) => ({
+      'Student ID': member.studentId,
+      FirstName: member.firstName,
+      LastName: member.lastName,
+      Phone: member.phoneNumber,
+      Email: member.email,
+      Department: member.department,
+      'Graduating Year': member.graduatingYear,
+      Sex: member.sex,
+      FocusArea: member.focusArea,
+    }));
   
-    // Helper function to convert string to ArrayBuffer for Excel export
-    const s2ab = (s) => {
-      const buf = new ArrayBuffer(s.length);
-      const view = new Uint8Array(buf);
-      for (let i = 0; i < s.length; i++) {
-        view[i] = s.charCodeAt(i) & 0xFF;
-      }
-      toast.success('Data exported successfully!');
-      return buf;
-    }
-    
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Members');
+    const fileName = 'members.xlsx';
+    const excelFile = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    const blob = new Blob([s2ab(excelFile)], { type: 'application/octet-stream' });
+    saveAs(blob, fileName);
+    toast.success('Data exported successfully!');
   };
+  
+  // Helper function to convert string to ArrayBuffer for Excel export
+  const s2ab = (s) => {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
+  };  
 
   // Handle successful member add or update
   const handleMemberSubmit = () => {

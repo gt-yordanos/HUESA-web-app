@@ -24,6 +24,15 @@ const Register = () => {
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchStatus = async () => {
+      const status = await checkRegistrationStatus();
+      setIsRegistrationOpen(status); // Set the registration status
+    };
+
+    fetchStatus();
+  }, []); // Empty dependency array ensures this runs only once
+
   const checkRegistrationStatus = async () => {
     try {
       const statusDocRef = doc(db, 'registration', 'status');
@@ -341,7 +350,6 @@ const Register = () => {
             </select>
             {errorMessages.focusArea && <p className="text-error text-sm">{errorMessages.focusArea}</p>}
           </div>
-
             {/* Submit Button */}
             <button type="submit" className="btn btn-info w-full" disabled={isLoading}>
               {isLoading ? (
