@@ -54,7 +54,6 @@ const Footer = () => {
             </a>
           )}
 
-          {/* Add other social links if available */}
           {contact.linkedin && (
             <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
               {/* LinkedIn Icon */}
