@@ -9,7 +9,7 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import AddMember from '../components/AddMember';
 import EditMember from '../components/EditMember';
 import MembersTable from '../components/MembersTable';
-
+import ToggleRegistrationStatus from '../components/ToggleRegistrationStatus';
 const Members = () => {
   const [members, setMembers] = useState([]);
   const [filteredMembers, setFilteredMembers] = useState([]);
@@ -197,6 +197,10 @@ const Members = () => {
             <FaFileExcel className="mr-2" />
             Export to Excel
           </button>
+        </div>
+
+        <div className='pb-4'>
+        <ToggleRegistrationStatus />
         </div>
 
         <div className="flex items-center space-x-4">
