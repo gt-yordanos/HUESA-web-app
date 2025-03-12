@@ -40,7 +40,7 @@ const MeetOurTeam = () => {
   }, []); 
 
   return (
-    <section id="teams" className="py-16 bg-base-300 lg:px-[10%] sm:p-20 px-4">
+    <section id="teams" className="py-16 bg-base-300 lg:px-[10%] px-4">
       <div className="container mx-auto text-center">
         <h1 className="sm:text-4xl text-2xl font-semibold mb-4">Meet Our Leadership Team</h1>
         <p className="sm:text-base lg:text-lg text-sm mb-6 text-left">

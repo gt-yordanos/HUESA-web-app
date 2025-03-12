@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import HeroImg from '../assets/ECON.png';
 const Hero = () => {
   return (
-    <div className="hero bg-base-200 min-h-screen lg:px-[10%] sm:px-20 px-4">
+    <div className="hero bg-base-200 min-h-screen lg:px-[10%] px-4">
     <div className="hero-content flex-col lg:flex-row-reverse gap-15 mt-16 items-center justify-center">
       <div className='flex flex-col items-center justify-center rounded-lg shadow-2xl'>
         <img
