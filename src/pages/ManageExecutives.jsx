@@ -4,6 +4,7 @@ import { collection, addDoc, updateDoc, doc, deleteDoc, getDocs } from 'firebase
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import convertDriveThumbnailUrl from '../Algorithms/convertDriveThumbnailUrl';
 
 const ManageExecutives = () => {
   const [executives, setExecutives] = useState([]);
@@ -29,16 +30,6 @@ const ManageExecutives = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false); 
   const [executivesLoading, setExecutivesLoading] = useState(true);
-
-  // Function to convert Google Drive URL to thumbnail URL
-  const convertDriveThumbnailUrl = (url) => {
-    const regex = /\/d\/([a-zA-Z0-9_-]+)/;
-    const match = url.match(regex);
-    if (match && match[1]) {
-      return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
-    }
-    return '';
-  };
 
   // Validate form fields
   const validateForm = () => {
