@@ -9,23 +9,23 @@ const AboutTheDeveloper = () => {
         {/* Hero Section - Centered */}
         <div className="hero min-h-[250px] lg:px-[10%] px-4 flex justify-center">
           <div className="hero-content flex flex-col items-center text-center">
-            <h1 className="sm:text-4xl text-2xl font-bold bg-amber-500 p-2 rounded-lg flex">About the Developer<FaCode className='ml-4'/></h1>
+            <h1 className="sm:text-4xl text-2xl font-bold bg-amber-500 p-2 rounded-lg flex items-center">About the Developer<FaCode className='ml-4'/></h1>
             <div className='flex flex-col justify-start '>
               <p className="sm:text-lg text-sm mt-4 text-left">
                 Hello! My name is <strong>Yordanos Genene</strong>, a 4th-year Computer Science student at Haramaya University. 
                 Although I am studying Computer Science, I have a deep passion for economics, which inspired me to build this website for HUESA.
               </p>
               <p className="sm:text-lg text-sm mt-4 text-left">
-                I developed this website for HUESA (Haramaya University Economics Student Association) for free, using modern technologies like React JS, Firebase, and Daisy UI.
+                I developed this website for HUESA (Haramaya University Economics Student Association), using modern technologies like React JS, Firebase, and Daisy UI.
               </p>
               <p className="sm:text-lg text-sm mt-4 text-left">
                 I am open to Software Engineering roles and am always looking to expand my skills.
               </p>
 
               {/* Contact Me Section */}
-              <p className="sm:text-lg text-sm mt-4 flex  justify-start">
-                <span className="text-gray-600">You can contact me via email:  </span>
-                <a href="mailto:yordanosgenene@example.com" className="text-gray-600 font-bold hover:text-gray-800 flex items-center ml-2">
+              <p className="sm:text-lg text-sm mt-4 flex flex-col sm:flex-row justify-start">
+                <span className="text-gray-600 text-left">You can contact me via email:  </span>
+                <a href="mailto:yordanosgenene@example.com" className="text-gray-600 font-bold hover:text-gray-800 flex items-center sm:ml-2">
                   <FaEnvelope className="mr-2 text-gray-600" /> gt.yordanos@gmail.com
                 </a>
               </p>
@@ -34,7 +34,7 @@ const AboutTheDeveloper = () => {
         </div>
 
         {/* Developer Profile Card - Left Aligned */}
-        <div className="card bg-base-100 shadow-xl p-6 mt-8 mx-auto w-full max-w-md">
+        <div className="card bg-base-100 shadow-xl p-6 mt-8 mx-auto w-full max-w-[90%] sm:max-w-md">
           <div className="flex flex-col items-center mb-6">
             <img
               src={devProfile}
@@ -42,8 +42,8 @@ const AboutTheDeveloper = () => {
               className="w-24 h-24 rounded-full border-3 border-base-content"
             />
             <h2 className="text-xl font-semibold mt-2">Yordanos Genene</h2>
-            <p className="text-sm text-gray-500">#4th Year Computer Science Student</p>
-            <p className="text-sm text-gray-500">#Junior Software Engineer</p>
+            <p className="text-sm text-gray-500 text-center">#4th Year Computer Science Student</p>
+            <p className="text-sm text-gray-500 text-center">#Junior Software Engineer</p>
           </div>
 
           {/* Contact Information - Column Buttons */}
