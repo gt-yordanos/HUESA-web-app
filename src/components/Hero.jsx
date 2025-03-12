@@ -4,7 +4,7 @@ import HeroImg from '../assets/ECON.png';
 const Hero = () => {
   return (
     <div className="hero bg-base-200 min-h-screen lg:px-[10%] px-4">
-    <div className="hero-content flex-col lg:flex-row-reverse gap-15 mt-16 items-center justify-center">
+    <div className="hero-content flex-col lg:flex-row-reverse gap-15 mt-16 items-center justify-center w-full">
       <div className='flex flex-col items-center justify-center rounded-lg shadow-2xl'>
         <img
         src={HeroImg}
@@ -14,7 +14,7 @@ const Hero = () => {
           Haramaya University Economics Students Association
         </p>
       </div>
-      <div>
+      <div className='w-full'>
         <h1 className="sm:text-4xl text-2xl font-bold text-center">Welcome to HUESA!</h1>
         <p className="py-6 text-sm sm:text-[1.1rem]">
           At HUESA, we are dedicated to fostering the growth of students by providing the resources,
