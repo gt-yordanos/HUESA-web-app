@@ -204,7 +204,6 @@ const ManageExecutives = () => {
 
       {/* Modal for adding/editing executive */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-10">
           <div className="modal modal-open">
             <div className="modal-box w-full max-w-md">
               <h2 className="text-xl font-semibold mb-4">{editing ? 'Edit Executive' : 'Add Executive'}</h2>
@@ -286,7 +285,6 @@ const ManageExecutives = () => {
                 </div>
               </form>
             </div>
-          </div>
         </div>
       )}
     </div>
