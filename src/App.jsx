@@ -14,6 +14,7 @@ import Members from './pages/Members';
 import ManageEvents from './pages/ManageEvents';
 import Certificates from './pages/Certificates';
 import AdminLogin from './pages/AdminLogin';
+import ManageExecutives from './pages/ManageExecutives';
 import AdminLayout from './layouts/AdminLayout';
 
 // Import ProtectedRoute
@@ -88,6 +89,16 @@ function App() {
           <ProtectedRoute>
             <AdminLayout>
               <Certificates />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+       <Route 
+        path="/admin/manage-executives"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <ManageExecutives />
             </AdminLayout>
           </ProtectedRoute>
         }

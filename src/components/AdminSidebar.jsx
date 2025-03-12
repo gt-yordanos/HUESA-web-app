@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaTachometerAlt, FaUserFriends, FaRegBuilding, FaCalendarAlt, FaAward, FaCompressAlt, FaExpandAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaTachometerAlt, FaUserFriends, FaRegBuilding, FaCalendarAlt, FaAward, FaCompressAlt, FaExpandAlt, FaSignOutAlt, FaUserTie } from 'react-icons/fa'; // Importing FaUserTie
 import { useTheme } from '../contexts/ThemeContext';
 import ThemeToggle from './ThemeToggle';
 import { useAuth } from '../contexts/AuthContext';
@@ -11,6 +11,7 @@ const AdminSidebar = () => {
   const location = useLocation();
   const { logout } = useAuth();
   const navigate = useNavigate(); 
+
   const handleSidebarCollapse = () => {
     setCollapsed(!collapsed);
   };
@@ -98,9 +99,18 @@ const AdminSidebar = () => {
           </Link>
         </li>
         <li>
+          <Link
+            to="/admin/manage-executives"
+            className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg(isSelected('/admin/manage-executives'))}`}
+          >
+            <FaUserTie className={`${collapsed ? '' : 'mr-2'}`} /> {/* Professional icon */}
+            {!collapsed && 'Executives'}
+          </Link>
+        </li>
+        <li>
           <button
             onClick={handleLogout}
-            className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg}`}
+            className={`flex items-center py-2 px-4 rounded text-lg ${getSelectedBg()}`}
           >
             <FaSignOutAlt className={`${collapsed ? '' : 'mr-2'}`} />
             {!collapsed && 'Logout'}
