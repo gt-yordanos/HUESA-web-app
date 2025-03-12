@@ -59,7 +59,7 @@ const handleLogin = async (e) => {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-base-100">
+    <div className="flex items-center justify-center min-h-screen bg-base-100 max-w-[90%] mx-auto">
       <div className="w-full max-w-md p-8 bg-base-300 shadow-lg rounded-lg">
         <h1 className="m-auto text-4xl text-center font-bold">HUESA</h1>
         <h2 className="mt-4 text-2xl font-bold mb-6 text-center">Admin Login</h2>
