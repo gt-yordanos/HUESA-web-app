@@ -180,7 +180,7 @@ const ManageExecutives = () => {
                     className="w-16 h-16 rounded-full mr-4"
                   />
                   <div>
-                    <h3 className="text-lg font-medium">{executive.firstName} {executive.lastName}</h3>
+                    <h3 className="text-lg font-medium">{executive.firstName} {executive.middleName}</h3>
                     <p>{executive.role}</p>
                     <p className="text-sm">{executive.email}</p>
                     <a href={executive.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-500 text-sm">

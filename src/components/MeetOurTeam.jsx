@@ -61,7 +61,7 @@ const MeetOurTeam = () => {
               <LeadershipCard 
                 key={member.id} // Use the Firestore document ID as the key
                 image={convertDriveThumbnailUrl(member.profilePic) || "https://via.placeholder.com/150"}
-                name={`${member.firstName} ${member.lastName}`}
+                name={`${member.firstName} ${member.middleName}`}
                 role={member.role}
                 linkedin={member.linkedin}
               />
