@@ -26,8 +26,8 @@ const AssociationsProvider = ({ children }) => {
       if (contactDoc.exists() && missionDoc.exists() && visionDoc.exists()) {
         setAssociations({
           contact: contactDoc.data(),
-          mission: missionDoc.data(),
-          vision: visionDoc.data(),
+          mission: missionDoc.data().mission, // Assuming the mission is stored under `mission` field
+          vision: visionDoc.data().vision,     // Assuming the vision is stored under `vision` field
         });
       }
     } catch (error) {

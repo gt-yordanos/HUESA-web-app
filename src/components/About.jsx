@@ -1,49 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { useAssociations } from '../contexts/AssociationsContext'; 
 
 const About = () => {
-  const [mission, setMission] = useState(`
-    Our mission is to bridge the gap between students, instructors, and business professionals
-    by providing students with the tools and opportunities to excel in the world of business and economics.
-    Through collaboration, mentorship, and hands-on training, we aim to empower students to grow, thrive, 
-    and build the foundation for a successful future.`
-  );
-  const [vision, setVision] = useState(`
-    HUESA envisions a community where students in the College of Business and Economics are equipped 
-    with the skills, knowledge, and connections they need to become leaders in their fields. We strive 
-    to create an environment that fosters collaboration, innovation, and personal growth, ultimately ensuring
-    that our members have the resources they need to succeed in both their academic and professional journeys.   
-    `);
-  const [loadingMission, setLoadingMission] = useState(true);
-  const [loadingVision, setLoadingVision] = useState(true);
+  // Use the custom hook to access the associations context
+  const { mission, vision } = useAssociations();
+
+  // Set loading state based on whether mission and vision are available
+  const [loadingMission, setLoadingMission] = useState(!mission && mission !== '');
+  const [loadingVision, setLoadingVision] = useState(!vision && vision !== '');
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const missionDocRef = doc(db, 'associations', 'mission');
-        const visionDocRef = doc(db, 'associations', 'vision');
-        
-        const missionDoc = await getDoc(missionDocRef);
-        const visionDoc = await getDoc(visionDocRef);
-
-        if (missionDoc.exists()) setMission(missionDoc.data().mission);
-        if (visionDoc.exists()) setVision(visionDoc.data().vision);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoadingMission(false);
-        setLoadingVision(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+    // If mission and vision are fetched, set loading to false
+    if (mission || mission === '') setLoadingMission(false);
+    if (vision || vision === '') setLoadingVision(false);
+  }, [mission, vision]);
 
   return (
     <div className="py-8 bg-base-200" id="about">
       <section className="hero min-h-[250px] bg-base-300 lg:px-[10%] px-4">
-        <div className="hero-content hero-co text-centerhero-content text-center flex flex-col items-center justify-center">
+        <div className="hero-content hero-co text-center hero-content text-center flex flex-col items-center justify-center">
           <h1 className="sm:text-4xl text-2xl font-bold">About HUESA</h1>
           <p className="sm:text-lg text-sm mt-4">
             We help students grow, learn, and connect through collaborative initiatives and mentorship.

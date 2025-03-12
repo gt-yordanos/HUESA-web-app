@@ -8,7 +8,7 @@ const Footer = () => {
 
   // Check if the contact data has been fetched
   if (!contact) {
-    return <div>Loading...</div>; // Display loading state if contact data is not yet available
+    return <div className="w-full flex items-center justify-center"><span className="loading loading-spinner loading-lg"></span></div>; // Display loading state if contact data is not yet available
   }
 
   return (
