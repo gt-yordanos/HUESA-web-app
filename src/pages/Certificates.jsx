@@ -36,13 +36,13 @@ const Certificates = () => {
         const vicePresidentSnapshot = await getDocs(vicePresidentQuery);
 
         if (!presidentSnapshot.empty) {
-          setPresidentName(presidentSnapshot.docs[0].data().firstName + " " + presidentSnapshot.docs[0].data().lastName);
+          setPresidentName(presidentSnapshot.docs[0].data().firstName + " " + presidentSnapshot.docs[0].data().middleName+ " " + presidentSnapshot.docs[0].data().lastName);
         } else {
           toast.error('No President found!');
         }
 
         if (!vicePresidentSnapshot.empty) {
-          setVicePresidentName(vicePresidentSnapshot.docs[0].data().firstName + " " + vicePresidentSnapshot.docs[0].data().lastName);
+          setVicePresidentName(vicePresidentSnapshot.docs[0].data().firstName + " " + vicePresidentSnapshot.docs[0].data().middleName);
         } else {
           toast.error('No Vice President found!');
         }
