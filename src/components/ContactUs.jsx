@@ -1,17 +1,15 @@
-import React from 'react';
-import { FaEnvelope, FaPhoneAlt, FaBuilding, FaLinkedinIn, FaInstagram, FaFacebookF, FaTelegramPlane, FaClock, FaCalendarAlt } from 'react-icons/fa';
+import React from 'react'; 
+import { FaEnvelope, FaPhoneAlt, FaBuilding, FaLinkedinIn, FaInstagram, FaFacebookF, FaTelegramPlane, FaCalendarAlt } from 'react-icons/fa';
 import { useAssociations } from '../contexts/AssociationsContext'; // Importing the custom hook
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons';
-<FontAwesomeIcon icon={faXTwitter} className="mr-2" />
+
 const ContactUs = () => {
   const { contact } = useAssociations();
+  const isLoading = !contact; // Check if the contact data is not available
 
   return (
-    <div className="py-8 bg-base-200" id="contact">
-      {/* Container for entire content */}
-      <div className="container mx-auto text-center">
-
+    <div className="text-center bg-base-200" id="contact">
         {/* Hero Section */}
         <div className="hero min-h-[250px] lg:px-[10%] px-4">
           <div className="hero-content flex flex-col items-center justify-center">
@@ -32,7 +30,9 @@ const ContactUs = () => {
                 <FaEnvelope className="mr-4 text-2xl" />
                 <span className="text-lg font-semibold">Email</span>
               </div>
-              <p className="text-left">{contact?.email || "info@huesa.com"}</p>
+              <p className="text-left">
+                {isLoading ? <span className="loading loading-spinner loading-xs"></span> : contact?.email || "info@huesa.com"}
+              </p>
             </div>
 
             {/* Contact Item: Phone */}
@@ -41,7 +41,9 @@ const ContactUs = () => {
                 <FaPhoneAlt className="mr-4 text-2xl" />
                 <span className="text-lg font-semibold">Phone</span>
               </div>
-              <p className="text-left">{contact?.phone || "+123 456 7890"}</p>
+              <p className="text-left">
+                {isLoading ? <span className="loading loading-spinner loading-xs"></span> : contact?.phone || "+123 456 7890"}
+              </p>
             </div>
 
             {/* Contact Item: Office */}
@@ -50,16 +52,20 @@ const ContactUs = () => {
                 <FaBuilding className="mr-4 text-2xl" />
                 <span className="text-lg font-semibold">Office</span>
               </div>
-              <p className="text-left">{contact?.office || "123 HUESA St., City, Country"}</p>
+              <p className="text-left">
+                {isLoading ? <span className="loading loading-spinner loading-xs"></span> : contact?.office || "123 HUESA St., City, Country"}
+              </p>
             </div>
 
-            {/* Contact Item: Office Workining Houtr */}
+            {/* Contact Item: Office Work Hours */}
             <div className="card bg-base-100 shadow-md p-6">
               <div className="flex items-center mb-4">
                 <FaCalendarAlt className="mr-4 text-2xl" />
                 <span className="text-lg font-semibold">Work Hours</span>
               </div>
-              <p className="text-left">{contact?.workhour || "Mon-Fri: 9am - 5pm"}</p>
+              <p className="text-left">
+                {isLoading ? <span className="loading loading-spinner loading-xs"></span> : contact?.workhour || "Mon-Fri: 9am - 5pm"}
+              </p>
             </div>
           </div>
         </div>
@@ -75,7 +81,9 @@ const ContactUs = () => {
                   <FaLinkedinIn className="mr-4 text-2xl text-blue-600" />
                   <span className="text-lg font-semibold">LinkedIn</span>
                 </div>
-                <p className="text-left">Follow us on LinkedIn</p>
+                <p className="text-left">
+                  {isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Follow us on LinkedIn"}
+                </p>
               </div>
             </a>
 
@@ -86,7 +94,9 @@ const ContactUs = () => {
                   <FaInstagram className="mr-4 text-2xl text-pink-600" />
                   <span className="text-lg font-semibold">Instagram</span>
                 </div>
-                <p className="text-left">Follow us on Instagram</p>
+                <p className="text-left">
+                  {isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Follow us on Instagram"}
+                </p>
               </div>
             </a>
 
@@ -97,7 +107,9 @@ const ContactUs = () => {
                   <FaFacebookF className="mr-4 text-2xl text-blue-700" />
                   <span className="text-lg font-semibold">Facebook</span>
                 </div>
-                <p className="text-left">Follow us on Facebook</p>
+                <p className="text-left">
+                  {isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Follow us on Facebook"}
+                </p>
               </div>
             </a>
 
@@ -108,24 +120,27 @@ const ContactUs = () => {
                   <FaTelegramPlane className="mr-4 text-2xl text-blue-500" />
                   <span className="text-lg font-semibold">Telegram</span>
                 </div>
-                <p className="text-left">Join our Telegram group</p>
+                <p className="text-left">
+                  {isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Join our Telegram group"}
+                </p>
               </div>
             </a>
 
             {/* Twitter/X */}
-            <a href={contact?.telegram || "#"} target="_blank" rel="noopener noreferrer">
+            <a href={contact?.twitter || "#"} target="_blank" rel="noopener noreferrer">
               <div className="card bg-base-100 shadow-md p-6">
                 <div className="flex items-center mb-4">
-                <FontAwesomeIcon icon={faXTwitter} className="mr-2" />
+                  <FontAwesomeIcon icon={faXTwitter} className="mr-2" />
                   <span className="text-lg font-semibold">X/Twitter</span>
                 </div>
-                <p className="text-left">Follow us on X/Twitter</p>
+                <p className="text-left">
+                  {isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Follow us on X/Twitter"}
+                </p>
               </div>
             </a>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
