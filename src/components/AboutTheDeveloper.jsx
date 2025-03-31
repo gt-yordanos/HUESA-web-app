@@ -1,8 +1,7 @@
 import React from 'react';
 import { FaLinkedin, FaGithub, FaCode, FaEnvelope, FaJs, FaReact, FaPython, FaJava } from 'react-icons/fa';
-
+import devProfile from '../assets/YordanosTheDev.jpg';
 const AboutTheDeveloper = () => {
-  let devProfile = "https://lh3.googleusercontent.com/a/ACg8ocLUTB8F_7a5iZVp_IOxpusUSozP_XUH3AungcVHbBzo1BoCsZgr=s432-c-no"
   return (
     <div className="py-16 bg-base-300" id="about-developer">
       <div className="container mx-auto">
