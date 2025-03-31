@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { FaTools } from 'react-icons/fa';
 const Library = () => {
   // Fake book data (You can expand this with more fake data)
   const fakeBooks = [
@@ -101,7 +101,7 @@ const Library = () => {
       <div className="lg:max-w-full max-w-[90%] mx-auto">
         <h2 className="sm:text-4xl text-2xl text-center font-bold mb-6 py-8">Library</h2>
 
-        {/* Search Bar */}
+       {/*
       <div className="relative mb-6 lg:w-[70%] w-[90%] mx-auto">
         <input
           type="text"
@@ -122,7 +122,6 @@ const Library = () => {
 
 
         <div className="flex flex-wrap justify-between gap-6 mb-6">
-          {/* Category Filter */}
           <div className="w-full lg:w-1/4">
             <div className="form-control">
               <label className="label">
@@ -144,7 +143,6 @@ const Library = () => {
           </div>
         </div>
 
-        {/* Books Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredBooks.length === 0 ? (
             <p className="text-center text-xl text-gray-500">No books found.</p>
@@ -171,7 +169,14 @@ const Library = () => {
                 </div>
               </div>
             ))
-          )}
+          )} 
+        </div> */}
+
+         {/* Under Maintenance Message */}
+         <div className="flex flex-col items-center justify-center min-h-[300px]">
+          <FaTools className="text-6xl text-gray-600 mb-4" />
+          <p className="text-3xl text-center font-bold text-error">Under Maintenance</p>
+          <p className="text-lg text-center text-gray-500">We are currently working on updating our library. Please check back later.</p>
         </div>
       </div>
     </div>
