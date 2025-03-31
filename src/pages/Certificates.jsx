@@ -68,7 +68,7 @@ const Certificates = () => {
     if (!certificateData.title) errors.title = 'Title is required';
     if (certificateData.title.length > 50) errors.title = 'Title cannot exceed 50 characters';
     if (!certificateData.description) errors.description = 'Description is required';
-    if (certificateData.description.length > 200) errors.description = 'Description cannot exceed 200 characters';
+    if (certificateData.description.length > 335) errors.description = 'Description cannot exceed 335 characters';
     if (!certificateData.date) errors.date = 'Date is required';
 
     setFormErrors(errors);
@@ -181,7 +181,7 @@ const Certificates = () => {
             </div>
             <div className="text-black absolute top-59 left-0 right-0 text-center w-full px-[10%] text-wrap">
               <div className='flex justify-center items-center'>
-              <p className="text-xs opacity-65 mx-auto text-justify">{certificateData.description}</p>
+              <p className="text-[10px] opacity-65 mx-auto text-justify font-serif">{certificateData.description}</p>
               </div>
             </div>
             <div className="text-black absolute top-92 left-0 right-0 text-center w-full">
