@@ -22,12 +22,14 @@ const Register = () => {
   const [errorMessages, setErrorMessages] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState(true);
+  const [loadingStatus, setLoadingStatus] = useState(true); // Loading state for registration status
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStatus = async () => {
       const status = await checkRegistrationStatus();
       setIsRegistrationOpen(status); // Set the registration status
+      setLoadingStatus(false); // Stop loading once the status is fetched
     };
 
     fetchStatus();
@@ -146,7 +148,11 @@ const Register = () => {
     <div className="w-full bg-base-300">
       <div className="sm:max-w-lg max-w-[90%] mx-auto py-20">
         <h2 className="sm:text-4xl text-2xl text-center py-8 font-bold mb-4">Member Registration</h2>
-        {!isRegistrationOpen ? (
+        {loadingStatus ? (
+          <div className="flex justify-center items-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+        ) : !isRegistrationOpen ? (
           <div className="text-center text-xl font-semibold text-error">
             <div className='w-full text-6xl py-4 text-error'>🔒</div>
             Registration is currently closed. Please wait for further updates from HUESA Executives.
