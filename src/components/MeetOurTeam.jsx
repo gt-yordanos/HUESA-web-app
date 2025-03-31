@@ -42,7 +42,7 @@ const MeetOurTeam = () => {
   return (
     <section id="teams" className="py-16 bg-base-300 lg:px-[10%] px-4">
       <div className="container mx-auto text-center">
-        <h1 className="sm:text-4xl text-2xl font-semibold mb-4">Meet Our Current Leadership</h1>
+        <h1 className="sm:text-4xl text-2xl font-semibold mb-4">Our Current Leadership Team</h1>
         <p className="sm:text-base lg:text-lg text-sm mb-6 text-left">
           The team behind HUESA is made up of passionate individuals who are dedicated to student success and growth. 
           Our team works tirelessly to organize events, connect students with professionals, and provide the resources needed 

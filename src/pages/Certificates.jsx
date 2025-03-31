@@ -15,7 +15,6 @@ const Certificates = () => {
     date: '',
   });
   const [presidentName, setPresidentName] = useState('');
-  const [vicePresidentName, setVicePresidentName] = useState('');
   const [formErrors, setFormErrors] = useState({
     title: '',
     description: '',
@@ -26,32 +25,22 @@ const Certificates = () => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const fetchExecutives = async () => {
+    const fetchExecutive = async () => {
       try {
         const executivesRef = collection(db, 'executives');
         const presidentQuery = query(executivesRef, where('role', '==', 'President'));
-        const vicePresidentQuery = query(executivesRef, where('role', '==', 'Vice President'));
-
         const presidentSnapshot = await getDocs(presidentQuery);
-        const vicePresidentSnapshot = await getDocs(vicePresidentQuery);
-
         if (!presidentSnapshot.empty) {
           setPresidentName(presidentSnapshot.docs[0].data().firstName + " " + presidentSnapshot.docs[0].data().middleName+ " " + presidentSnapshot.docs[0].data().lastName);
         } else {
           toast.error('No President found!');
-        }
-
-        if (!vicePresidentSnapshot.empty) {
-          setVicePresidentName(vicePresidentSnapshot.docs[0].data().firstName + " " + vicePresidentSnapshot.docs[0].data().middleName);
-        } else {
-          toast.error('No Vice President found!');
         }
       } catch (error) {
         console.error('Error fetching executives:', error);
         toast.error('Error fetching executives!');
       }
     };
-    fetchExecutives();
+    fetchExecutive();
   }, []);
 
   const handleInputChange = (e) => {
@@ -184,14 +173,10 @@ const Certificates = () => {
               <p className="text-[10px] opacity-65 mx-auto text-justify font-serif">{certificateData.description}</p>
               </div>
             </div>
-            <div className="text-black absolute top-92 left-0 right-0 text-center w-full">
-              <p className="text-xs opacity-50">Given: {new Date(certificateData.date).toLocaleDateString()}</p>
-            </div>
-
-            <div className="text-black absolute top-82 left-0 right-0 text-center w-full px-[10%]">
-              <div className="flex justify-evenly gap-35">
-                <p className="text-xs opacity-90 text-justify">{presidentName}</p>
-                <p className="text-xs opacity-90 text-justify">{vicePresidentName}</p>
+            <div className="text-black absolute top-75 left-0 right-0 text-center w-full px-[10%] h-[60px]">
+              <div className="grid grid-cols-2 gap-0 h-full">
+                <p className="text-[10px] opacity-90 relative w-full text-center"><span className='absolute top-7 left-[-16px] w-full'>{presidentName}</span></p>
+                <p className="text-[10px] opacity-90 relative w-full text-center"><span className='absolute top-2 left-[12px] w-full'>Given: {new Date(certificateData.date).toLocaleDateString()}</span></p>
               </div>
             </div>
           </div>

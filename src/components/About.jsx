@@ -54,7 +54,7 @@ const About = () => {
 
       <section className="py-16 lg:px-[10%] px-4">
         <div className="container mx-auto text-center">
-          <h2 className="m:text-4xl text-2xl font-semibold mb-4">The Founding Executive Committee (2024)</h2>
+          <h2 className="m:text-4xl text-2xl font-semibold mb-4">The First Executive Committee (2024)</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Founding members card */}
             <div className="card bg-base-100 shadow-md p-4">
