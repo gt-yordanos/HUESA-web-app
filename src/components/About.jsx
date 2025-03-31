@@ -21,7 +21,7 @@ const About = () => {
         <div className="py-10">
           <h1 className="sm:text-4xl text-2xl font-bold text-center">About HUESA</h1>
           <p className="sm:text-lg text-sm mt-4 text-left w-full mt-10">
-            The Haramaaya University Economics Students Association (HUESA) was established on April 18, 2024, through the collective efforts of economics students, led by the then GC students Kaleb Kassahun, Guta Bacha, and Taju Mohammed, in collaboration with the Department of Economics. Founded to promote academic growth, leadership, and professional networking among economics students, HUESA serves as a dynamic platform organizing regular academic seminars, research competitions, career development workshops, policy debate forums, and networking events with industry professionals and alumni.
+            The Haramaaya University Economics Students Association (HUESA) was established on April 18, 2024, through the collective efforts of economics students, led by the then GC students <b>Kaleb Kassahun</b>, <b>Guta Bacha</b>, and <b>Taju Mohammed</b>, in collaboration with the Department of Economics. Founded to promote academic growth, leadership, and professional networking among economics students, HUESA serves as a dynamic platform organizing regular academic seminars, research competitions, career development workshops, policy debate forums, and networking events with industry professionals and alumni.
           </p>
         </div>
       </section>
